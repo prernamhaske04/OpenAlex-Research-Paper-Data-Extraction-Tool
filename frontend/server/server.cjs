@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 
@@ -265,12 +267,13 @@ async function requestOpenAlex(url) {
 
     try {
       response = await fetch(url, {
-        headers: {
-          Accept: "application/json",
-          "User-Agent":
-            "OpenAlex-Research-Explorer/1.0",
-        },
-        signal: AbortSignal.timeout(15000),
+      headers: {
+  Accept: "application/json",
+  "User-Agent":
+    "OpenAlex-Research-Explorer/1.0",
+ 
+},
+     signal: AbortSignal.timeout(15000),
       });
     } catch (error) {
       console.error(
@@ -752,7 +755,8 @@ app.get(
             );
           }
 
-          const url =
+          params.set("api_key", process.env.OPENALEX_API_KEY);
+	const url =
             `${OPENALEX_URL}?${params.toString()}`;
 
           try {
